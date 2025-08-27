@@ -1,3 +1,3 @@
 #!/bin/bash
 cd ~/DX_autoaim/ros2
-colcon build --symlink-install --parallel-workers 4 --cmake-args -DCMAKE_BUILD_TYPE=Release
+colcon build --merge-install --symlink-install --parallel-workers 4 --cmake-args -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON

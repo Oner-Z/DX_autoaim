@@ -79,8 +79,8 @@ AimAuto::AimAuto(GlobalParam *gp)
     this->gp = gp;
     
     // 初始化推理器（只初始化一次）
-    auto modelXmlPath = "../model/0526.xml";
-    auto modelBinPath = "../model/0526.bin";
+    auto modelXmlPath = "/home/ovalene/DX_autoaim/model/0526.xml";
+    auto modelBinPath = "/home/ovalene/DX_autoaim/model/0526.bin";
     std::string device = "CPU";  // 使用CPU推理
     
     try {
@@ -111,7 +111,8 @@ AimAuto::~AimAuto()
 
 int cnt = 0, err = 0;
 void AimAuto::auto_aim(GlobalParam &gp, cv::Mat &src, Translator &ts, double dt)
-{
+{   
+    // cv::imshow("src", src);
     std::vector<Armor> tar_list;
     auto detectColor = gp.color;
     

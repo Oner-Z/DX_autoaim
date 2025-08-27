@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.8)
 project(rm_comm_ros2)
 
-if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 17)
 endif()
 
 find_package(ament_cmake REQUIRED)
@@ -23,6 +23,7 @@ include_directories(
 )
 
 add_library(rm_comm_protocol INTERFACE)
+
 target_include_directories(rm_comm_protocol INTERFACE
   ${PROJECT_SOURCE_DIR}/include
   ${PROJECT_SOURCE_DIR}/include/rm_comm_ros2
@@ -41,8 +42,8 @@ install(DIRECTORY include/
   DESTINATION include
 )
 
-install(DIRECTORY launch/
-  DESTINATION share/${PROJECT_NAME}/launch
+install(DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME}
 )
 
 ament_package() 

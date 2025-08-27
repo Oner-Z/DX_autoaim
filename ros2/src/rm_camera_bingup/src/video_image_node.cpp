@@ -35,10 +35,8 @@ public:
       throw std::runtime_error("open video failed");
     }
 
-    double fps = cap_.get(cv::CAP_PROP_FPS);
-    if (fps <= 1e-3) {
-      fps = publish_rate_hz_ > 0.0 ? publish_rate_hz_ : 60.0;
-    }
+    double fps = publish_rate_hz_ > 0.0 ? publish_rate_hz_ : 60.0;
+    
     const auto period = std::chrono::duration<double>(1.0 / std::max(1.0, fps));
 
     if (use_image_shm_) {
@@ -105,6 +103,8 @@ private:
     auto msg = cv_bridge::CvImage(std_msgs::msg::Header(), "bgr8", frame).toImageMsg();
     msg->header.stamp = this->now();
     msg->header.frame_id = "camera_optical_frame";
+    // printf("publish image\n");
+    RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(), 1000, "publish image at topic: %s with frequency: %f", topic_name_.c_str(), publish_rate_hz_);
     publisher_->publish(*msg);
   }
 
