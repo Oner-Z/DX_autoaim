@@ -7,9 +7,9 @@ from launch.actions import DeclareLaunchArgument
 def generate_launch_description():
     topic_name = LaunchConfiguration('topic_name', default='/image_raw')
     video_path = LaunchConfiguration('video_path', default='/home/ovalene/DX_autoaim/video/blue/v1.avi')
-    publish_rate = LaunchConfiguration('publish_rate', default='10.0')
+    publish_rate = LaunchConfiguration('publish_rate', default='30.0')
     loop = LaunchConfiguration('loop', default='true')
-    use_image_shm = LaunchConfiguration('use_image_shm', default='false')
+    use_image_shm = LaunchConfiguration('use_image_shm', default='true')
     image_shm_name = LaunchConfiguration('image_shm_name', default='/image_raw_shm')
     image_shm_size = LaunchConfiguration('image_shm_size', default='8388672')
 

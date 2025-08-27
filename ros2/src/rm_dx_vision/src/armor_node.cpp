@@ -64,6 +64,10 @@ public:
     image_shm_name_ = this->get_parameter("image_shm_name").as_string();
     image_shm_size_ = static_cast<size_t>(this->get_parameter("image_shm_size").as_int());
 
+    aim_auto = std::make_unique<AimAuto>(&gp);
+    wmi_ = std::make_unique<WMIdentify>(gp);
+    wmp_ = std::make_unique<WMPredict>(gp);
+
     // 订阅图像（或启用共享内存模式）
     if (!use_image_shm_) {
       image_sub_ = this->create_subscription<sensor_msgs::msg::Image>(
@@ -100,7 +104,6 @@ public:
     }
 
     // 初始化自瞄模块
-    aim_auto = std::make_unique<AimAuto>(&gp);
   }
 
   ~ArmorNode() override {
@@ -255,10 +258,6 @@ private:
         publishTranslator();
       } else {
         // 能量机关
-        if (!wmi_)
-          wmi_ = std::make_unique<WMIdentify>(gp);
-        if (!wmp_)
-          wmp_ = std::make_unique<WMPredict>(gp);
         wmi_->identifyWM(frame, translator_);
         wmp_->StartPredict(translator_, gp, *wmi_);
         publishTranslator();

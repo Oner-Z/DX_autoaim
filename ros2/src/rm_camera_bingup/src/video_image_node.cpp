@@ -83,9 +83,10 @@ private:
       const uint32_t step = static_cast<uint32_t>(frame.step);
       const uint32_t data_len = step * h;
       if (sizeof(ImageShmHeader) + data_len <= image_shm_size_) {
-        image_hdr_->width = w;
+        RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(), 1000, "publish image to shm: %d, %d, %d, %d, %d at %f Hz", w, h, ch, step, data_len, publish_rate_hz_); 
         image_hdr_->height = h;
         image_hdr_->channels = ch;
+        image_hdr_->width = w;
         image_hdr_->step = step;
         image_hdr_->data_len = data_len;
         if (frame.isContinuous() && step == w * ch) {
