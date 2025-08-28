@@ -38,12 +38,15 @@ else()
 endif()
 
 # Local paths to sources and headers (inside this ROS2 package)
-set(ARMOR_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
+
+set(PROJECT_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../..")
+
+set(ARMOR_SRC_DIR "${PROJECT_ROOT_DIR}/armor/src")
 set(ARMOR_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
-# External include dirs from the monorepo (build-time only)
-set(PARAMS_INCLUDE_DIR "/home/ovalene/DX_autoaim/params/include")
-set(WINDMILL_INCLUDE_DIR "/home/ovalene/DX_autoaim/windmill/include")
-set(WINDMILL_SRC_DIR "/home/ovalene/DX_autoaim/windmill/src")
+
+set(WINDMILL_SRC_DIR "${PROJECT_ROOT_DIR}/windmill/src")
+set(WINDMILL_INCLUDE_DIR "${PROJECT_ROOT_DIR}/windmill/include")
+set(PARAMS_INCLUDE_DIR "${PROJECT_ROOT_DIR}/params/include")
 # 已移除: CAMERA_INCLUDE_DIR
 
 # Sources (conditionally include OpenVINO source)
@@ -110,7 +113,7 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 # 新增：可执行节点，订阅图像topic + String RX/TX
-add_executable(armor_node ${ARMOR_SRC_DIR}/armor_node.cpp)
+add_executable(armor_node ${CMAKE_CURRENT_SOURCE_DIR}/src/armor_node.cpp)
 ament_target_dependencies(armor_node rclcpp sensor_msgs cv_bridge std_msgs)
 # 链接本包静态库
 target_link_libraries(armor_node ${PROJECT_NAME})
