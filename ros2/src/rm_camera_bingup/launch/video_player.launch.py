@@ -6,10 +6,10 @@ from launch.actions import DeclareLaunchArgument
 
 def generate_launch_description():
     topic_name = LaunchConfiguration('topic_name', default='/image_raw')
-    video_path = LaunchConfiguration('video_path', default='')
-    publish_rate = LaunchConfiguration('publish_rate', default='0.0')
+    video_path = LaunchConfiguration('video_path', default='/home/ovalene/DX_autoaim/video/blue/v1.avi')
+    publish_rate = LaunchConfiguration('publish_rate', default='30.0')
     loop = LaunchConfiguration('loop', default='true')
-    use_image_shm = LaunchConfiguration('use_image_shm', default='false')
+    use_image_shm = LaunchConfiguration('use_image_shm', default='true')
     image_shm_name = LaunchConfiguration('image_shm_name', default='/image_raw_shm')
     image_shm_size = LaunchConfiguration('image_shm_size', default='8388672')
 
@@ -22,7 +22,7 @@ def generate_launch_description():
         DeclareLaunchArgument('image_shm_name', default_value=image_shm_name),
         DeclareLaunchArgument('image_shm_size', default_value=image_shm_size),
         Node(
-            package='rm_camera_bingup',
+            package='rm_camera_bringup',
             executable='video_image_node',
             name='video_image_node',
             output='screen',

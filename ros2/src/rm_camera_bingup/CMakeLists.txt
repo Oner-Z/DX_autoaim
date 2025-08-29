@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
-project(rm_camera_bingup)
+project(rm_camera_bringup)
 
-# Default to C++17
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 17)
 endif()
@@ -24,7 +23,6 @@ include_directories(
 
 link_directories(
         /opt/MVS/lib/64
-        /opt/MVS/lib/32
         /usr/local/lib
         )
 

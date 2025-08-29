@@ -35,10 +35,8 @@ public:
       throw std::runtime_error("open video failed");
     }
 
-    double fps = cap_.get(cv::CAP_PROP_FPS);
-    if (fps <= 1e-3) {
-      fps = publish_rate_hz_ > 0.0 ? publish_rate_hz_ : 60.0;
-    }
+    double fps = publish_rate_hz_ > 0.0 ? publish_rate_hz_ : 60.0;
+    
     const auto period = std::chrono::duration<double>(1.0 / std::max(1.0, fps));
 
     if (use_image_shm_) {
@@ -85,9 +83,10 @@ private:
       const uint32_t step = static_cast<uint32_t>(frame.step);
       const uint32_t data_len = step * h;
       if (sizeof(ImageShmHeader) + data_len <= image_shm_size_) {
-        image_hdr_->width = w;
+        RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(), 1000, "publish image to shm: %d, %d, %d, %d, %d at %.2f Hz", w, h, ch, step, data_len, publish_rate_hz_); 
         image_hdr_->height = h;
         image_hdr_->channels = ch;
+        image_hdr_->width = w;
         image_hdr_->step = step;
         image_hdr_->data_len = data_len;
         if (frame.isContinuous() && step == w * ch) {
@@ -105,6 +104,8 @@ private:
     auto msg = cv_bridge::CvImage(std_msgs::msg::Header(), "bgr8", frame).toImageMsg();
     msg->header.stamp = this->now();
     msg->header.frame_id = "camera_optical_frame";
+    // printf("publish image\n");
+    RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(), 1000, "publish image at topic: %s with frequency: %f", topic_name_.c_str(), publish_rate_hz_);
     publisher_->publish(*msg);
   }
 

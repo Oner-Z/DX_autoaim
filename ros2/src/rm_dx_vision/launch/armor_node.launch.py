@@ -15,6 +15,7 @@ def generate_launch_description():
 	use_image_shm = LaunchConfiguration('use_image_shm', default='false')
 	image_shm_name = LaunchConfiguration('image_shm_name', default='/image_raw_shm')
 	image_shm_size = LaunchConfiguration('image_shm_size', default='8388672')
+	vision_only = LaunchConfiguration('vision_only', default='true')
 
 	return LaunchDescription([
 		DeclareLaunchArgument('image_topic', default_value=image_topic),
@@ -27,6 +28,7 @@ def generate_launch_description():
 		DeclareLaunchArgument('use_image_shm', default_value=use_image_shm),
 		DeclareLaunchArgument('image_shm_name', default_value=image_shm_name),
 		DeclareLaunchArgument('image_shm_size', default_value=image_shm_size),
+		DeclareLaunchArgument('vision_only', default_value=vision_only),
 		Node(
 			package='rm_dx_vision',
 			executable='armor_node',
@@ -43,6 +45,7 @@ def generate_launch_description():
 				'use_image_shm': use_image_shm,
 				'image_shm_name': image_shm_name,
 				'image_shm_size': image_shm_size,
+				'vision_only': vision_only,
 			}]
 		)
 	]) 

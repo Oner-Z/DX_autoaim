@@ -3,7 +3,7 @@
   <name>rm_comm_ros2</name>
   <version>0.1.0</version>
   <description>ROS2 communication framework bridging serial_driver and std_msgs/String with 64-byte packets, plus a handler to assemble/disassemble protocol frames.</description>
-  <maintainer email="dev@example.com">maintainer</maintainer>
+  <maintainer email="xw_luo0804@qq.com">maintainer</maintainer>
   <license>MIT</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
@@ -12,11 +12,6 @@
   <depend>std_msgs</depend>
   <depend>geometry_msgs</depend>
   <depend>nav_msgs</depend>
-
-  <!-- Optional serial driver message packages (Humble: serial_driver_msgs in transport_drivers; some distros: serial_msgs) -->
-  <exec_depend>serial_driver</exec_depend>
-  <depend condition="$ROS_DISTRO == humble">serial_driver_msgs</depend>
-  <depend>serial_msgs</depend>
 
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
